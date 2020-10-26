@@ -1,29 +1,26 @@
 .header {
-display: flex;
-justify-content: space-between;
-align-items: center;
 margin: 0 auto;
-max-width: 1184px;
-margin-top: 2.4%;
+max-width: 880px;
+height: 74px;
+margin-top: 45px;
+border-bottom: 1px solid rgba(84,84,84,0.7);
 }
-
+/*
 @media screen and (max-width: 1279px) {
     .header {
-        /*Этот блок у нас будет отвечать за ширину 1279px - 1024px!*/
         width: calc(100% - 2*48px); 
     } 
    }
-   @media screen and (max-width: 1023px) {
-    .header {
-       /*Этот блок у нас будет отвечать за ширину 1023px - 768px*/
-       width: calc(100% - 2*24px);
-       margin-top: 3.7%;
-    } 
-   }
-   @media screen and (max-width: 767px) {
-    .header {
-       /*Этот блок у нас будет отвечать за ширину 767px - 320px*/
-       width: calc(100% - 2*16px);
-       margin-top: 5%;
-    } 
-   }
+@media screen and (max-width: 1023px) {
+   .header {
+      width: calc(100% - 2*24px);
+      margin-top: 3.7%;
+   } 
+}
+@media screen and (max-width: 767px) {
+   .header {
+      width: calc(100% - 2*16px);
+      margin-top: 5%;
+   } 
+}
+*/
