@@ -1,0 +1,29 @@
+.lead__subtitle {
+max-width: 640px;
+font-size: 30px;
+line-height: 1.2;
+text-align: center;
+margin: 0 auto;
+margin-top: 2.4%;
+}
+
+
+
+
+@media screen and (max-width: 1023px) {
+   .lead__subtitle {
+      /*Этот блок у нас будет отвечать за ширину 1023px - 768px*/
+      margin-top: 3%;
+   } 
+}
+
+@media screen and (max-width: 767px) {
+   .lead__subtitle  {
+       /*Этот блок у нас будет отвечать за ширину 767px - 320px*/
+       max-width: 288px;
+       font-size: 16px;
+       line-height: 125%;
+       /* or 125% */
+       margin-top: 4%;
+    } 
+   }

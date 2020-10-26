@@ -1,0 +1,20 @@
+.intro__text {
+max-width: 690px;
+margin: 0;
+font-size: 16px;
+line-height: 163%;
+margin-top: 39px;
+}
+@media screen and (max-width: 1023px) {
+    .intro__text {
+       /*Этот блок у нас будет отвечать за ширину 1023px - 768px*/
+       max-width: 720px;
+    } 
+   }
+ @media screen and (max-width: 767px) {
+     .intro__text {
+        /*Этот блок у нас будет отвечать за ширину 767px - 320px*/
+        margin-top: 12.3%;
+    } 
+    }
+ 
