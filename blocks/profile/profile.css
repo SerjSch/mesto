@@ -5,4 +5,11 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  position: relative;
+  }
+
+  @media screen and (max-width: 767px) {
+    .profile {
+    flex-direction: column;
+      }
   }

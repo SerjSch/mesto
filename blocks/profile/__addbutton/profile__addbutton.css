@@ -1,6 +1,7 @@
 .profile__addbutton {
   width: 150px;
   height: 50px;
+  justify-items: end;
   background-color: transparent;
   padding: 0;
   background-image: url(../../../images/addbutton.svg);
@@ -11,4 +12,20 @@
   background-repeat: no-repeat;
   cursor: pointer;
   outline: none;
+  position: absolute;
+  right: 0;
+}
+
+.profile__addbutton:hover {
+  opacity: 0.5;
+
+}
+
+@media screen and (max-width: 767px) {
+  .profile__addbutton {
+    position: static;
+    width: 282px;
+    height: 50px;
+    margin-top: 33px;
+  } 
 }

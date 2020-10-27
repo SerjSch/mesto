@@ -6,3 +6,15 @@
   line-height: 48px;
   margin: 0;
 }
+
+@media screen and (max-width: 767px) {
+  .profile__name {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 27px;
+    line-height: 33px;
+    text-align: center;
+    margin-left: 26px;
+    }
+}
