@@ -16,9 +16,10 @@
       <section class="profile">
         <img class="profile__avatar-foto" src="./images/kusto.jpg">
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто<button type="button" class="profile__edit-button"></button></h1>
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__discription">Исследователь океана</p>
         </div>
+        <button type="button" class="profile__edit-button"></button>
         <button type="button" class="profile__addbutton"></button>
       </section>
       <section class="photo-grid">
@@ -38,8 +39,8 @@
             <img class="photo-grid__item" src="images/kirill-pershin-1088404-unsplash.png" alt="красивое место 4">
             <div class="photo-grid__foto-discription"><p class="photo-grid__place-name">Гора Эльбрус</p><button type="button" class="photo-grid__heart"></button></div>
           <li>
-            <img class="photo-grid__item" src="images/kirill-pershin-1404681-unsplash.png" alt="красивое место 5">
-            <div class="photo-grid__foto-discription"><p class="photo-grid__place-name">Домбай</p><button type="button" class="photo-grid__heart"></button></div>
+            <img class="photo-grid__item" src="images/ben.jpg" alt="красивое место 5">
+            <div class="photo-grid__foto-discription"><p class="photo-grid__place-name">Бен</p><button type="button" class="photo-grid__heart"></button></div>
           <li>
             <img class="photo-grid__item" src="images/kirill-pershin-1556355-unsplash.png" alt="красивое место 6">
             <div class="photo-grid__foto-discription"><p class="photo-grid__place-name">Карачаево-Черкесская Республика</p><button type="button" class="photo-grid__heart"></button></div>
@@ -50,6 +51,18 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p> 
     </footer>
    </div>
+   <div class="popup">
+    <div class="popup__window">
+      <button type="button" class="popup__close-button"></button>
+      <p class="popup__title">Редактировать профиль</p>
+      <form class="popup__form">
+        <input type="text" class="popup__input-name" value="Жак-Ив Кусто">
+        <input type="text" class="popup__input-discription" value="Исследователь океана">
+        <button type="submit" class="popup__save-button">Сохранить</button>
+      </form>
+    </div>
+   </div>
    <script src="./scripts/script.js"></script>
+
 </body>
 </html>
