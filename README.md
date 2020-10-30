@@ -9,6 +9,7 @@
 * JS!
 
 **Описание проекта и его функциональность**
+
 * Старница с картинками
 * Можно вызвать popup окно кнопкой изменить-редактировать
 * В окно popup можно ввести данные и изменять Имя и описание. 
@@ -18,5 +19,5 @@
 * [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
 
 **GitHub Pages**
-* [Ссылка на сайт на GitHub Pages](https://serjsch.github.io/mesto/)
 
+* [Ссылка на сайт на GitHub Pages](https://serjsch.github.io/mesto/)

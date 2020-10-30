@@ -1,10 +1,9 @@
 .profile__title {
-  display: flex;
+    display: flex;
 }
 
-
 @media screen and (max-width: 767px) {
-  .profile__title {
-    margin-left: 38px;
+    .profile__title {
+        margin-left: 38px;
     }
 }
