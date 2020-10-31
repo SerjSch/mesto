@@ -4,8 +4,8 @@ const closeButton = popup.querySelector('.popup__close-button');
 const forma = document.querySelector('.popup__form');
 const profileName = document.querySelector('.profile__name');
 const discription = document.querySelector('.profile__discription');
-const inputName = document.querySelector('.popup__input_name');
-const inputDiscription = document.querySelector('.popup__input_discription');
+const inputName = document.querySelector('.popup__input_name_name');
+const inputDiscription = document.querySelector('.popup__input_name_discription');
 
 function showPopup() {
     popup.classList.add('popup_opened')
