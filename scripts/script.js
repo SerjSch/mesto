@@ -26,4 +26,3 @@ function submitForm(e) {
     closePopup();
 }
 forma.addEventListener('submit', submitForm);
-forma.addEventListener('submit', closePopup);
