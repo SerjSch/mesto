@@ -1,7 +1,6 @@
 .photo-grid__item {
     width: 100%;
-    max-height: 282px;
-    /* Это же и есть картинка? если убираю, картинка Бен растягивается вниз*/
+    height: 282px;
     object-fit: cover;
     display: block;
     border-radius: 10px 10px 0px 0px;
