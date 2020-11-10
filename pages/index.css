@@ -16,9 +16,12 @@
 @import url(../blocks/photo-grid/photo-grid.css);
 @import url(../blocks/photo-grid/__list/photo-grid__list.css);
 @import url(../blocks/photo-grid/__item/photo-grid__item.css);
+@import url(../blocks/photo-grid/__spisok/photo-grid__spisok.css);
 @import url(../blocks/photo-grid/__foto-discription/photo-grid__foto-discription.css);
 @import url(../blocks/photo-grid/__place-name/photo-grid__place-name.css);
 @import url(../blocks/photo-grid/__heart/photo-grid__heart.css);
+@import url(../blocks/photo-grid/__heart/_liked/photo-grid__heart_liked.css);
+@import url(../blocks/photo-grid/__trash-bin/photo-grid__trash-bin.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/popup/popup.css);

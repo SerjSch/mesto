@@ -93,6 +93,7 @@ const initialCards = [{
 function createCard(arrayElement) {
     const cardElementemplate = document.querySelector(".fotocards").content.cloneNode(true);
     cardElementemplate.querySelector(".photo-grid__item").src = arrayElement.link; //вставляем данные в карточки беря их из объекта data
+    cardElementemplate.querySelector(".photo-grid__item").alt = arrayElement.name;
     cardElementemplate.querySelector(".photo-grid__place-name").textContent = arrayElement.name; //вставляем данные в карточки беря их из объекта data
     //навешивание обработчиков
     return cardElementemplate;
@@ -105,9 +106,13 @@ function addCardToContainer(arrayElement) {
 initialCards.forEach(addCardToContainer)
 
 ////////////////ЛАЙКИ////////////////////
-const like = document.querySelector('.photo-grid__heart');
+const likebutton = document.querySelector('.photo-grid__heart');
 
-function Like() {
-    like.classList.add('popup_opened')
-}
-closeButton.addEventListener('click', closePopup);
+
+likebutton.addEventListener('click', function Liked() {
+    if (likebutton.classList.contains('photo-grid__heart_liked')) {
+        likebutton.classList.remove('photo-grid__heart_liked');
+    } else {
+        likebutton.classList.add('photo-grid__heart_liked');
+    }
+})
