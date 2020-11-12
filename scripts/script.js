@@ -94,28 +94,28 @@ function addCardToContainer(arrayElement) {
     const popupImageZoom = document.querySelector('.popup_image-zoom');
     const fotoToZoom = document.querySelector('.photo-grid__item');
     const closeZoomFotoButton = document.querySelector('.popup__window_zoom');
+    const bigFoto = document.querySelector('.popup__big-foto');
+    const placeNameFotobeforZoom = document.querySelector('.photo-grid__place-name');
+    const placeNameinZoom = document.querySelector('.popup__place-name_zoom');
+    console.log(bigFoto);
+    //console.log(placeNameFotobeforZoom);
+    // console.log(placeNameinZoom);
 
-    function zoomFoto() { //Открываем попап
+    //Открываем попап
+    function zoomFoto() {
+        bigFoto.src = fotoToZoom.src;
+        placeNameinZoom.textContent = placeNameFotobeforZoom.textContent;
         popupImageZoom.classList.add('popup_opened');
     }
-    //Отслеживаем клики по фото
     fotoToZoom.addEventListener('click', zoomFoto);
 
+    //Закрываем попап
     function closePopupImageZoom() {
         popupImageZoom.classList.remove('popup_opened')
     }
     closeZoomFotoButton.addEventListener('click', closePopupImageZoom);
 
-    function submitFormNewplace(e) {
-        e.preventDefault();
-        initialCards.push({
-            name: inputPlaceName.value,
-            link: inputPlaceUrl.value
-        });
-        closePopupNewplace();
-        initialCards.forEach(addCardToContainer) // Пересоздаем карточки с фото
-    }
-    formaNewplace.addEventListener('submit', submitFormNewplace);
+
 
 }
 ///////////////POPUP для Добавления ФОТОКАРТОЧЕК ////////////////////////////////////////////////////////
