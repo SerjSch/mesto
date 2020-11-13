@@ -4,6 +4,6 @@
 
 @media screen and (max-width: 767px) {
     .profile__card {
-        flex-direction: column
+        flex-direction: column;
     }
 }
