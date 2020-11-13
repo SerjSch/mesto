@@ -93,7 +93,7 @@ function addCardToContainer(arrayElement) {
     ///////////////POPUP для Фотозума//////////////////////////////////////////////////////////////////////////
     const popupImageZoom = document.querySelector('.popup_image-zoom');
     const fotoToZoom = document.querySelector('.photo-grid__item');
-    const closeZoomFotoButton = document.querySelector('.popup__window_zoom');
+    const closeZoomFotoButton = document.querySelector('.popup__close-button_zoom');
     const bigFoto = document.querySelector('.popup__big-foto');
     const placeNameFotobeforZoom = document.querySelector('.photo-grid__place-name');
     const placeNameinZoom = document.querySelector('.popup__place-name_zoom');
