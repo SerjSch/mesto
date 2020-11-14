@@ -2,21 +2,21 @@
 const popup = document.querySelector('.popup');
 const editButton = document.querySelector('.profile__edit-button');
 const closeButton = popup.querySelector('.popup__close-button');
-const forma = document.querySelector('.popup__form');
+const form = document.querySelector('.popup__form');
 const profileName = document.querySelector('.profile__name');
 const discription = document.querySelector('.profile__discription');
 const inputName = document.querySelector('.popup__input_name_name');
 const inputDiscription = document.querySelector('.popup__input_name_discription');
 
 function showPopup() {
-    popup.classList.add('popup_opened')
+    popup.classList.add('popup_opened');
     inputName.value = profileName.textContent;
     inputDiscription.value = discription.textContent;
 }
 editButton.addEventListener('click', showPopup);
 
 function closePopup() {
-    popup.classList.remove('popup_opened')
+    popup.classList.remove('popup_opened');
 }
 closeButton.addEventListener('click', closePopup);
 
@@ -26,12 +26,12 @@ function submitForm(e) {
     discription.textContent = inputDiscription.value;
     closePopup();
 }
-forma.addEventListener('submit', submitForm);
+form.addEventListener('submit', submitForm);
 ///////////////КОНЕЦ - POPUP для Имени и профессии////////////////////////////////////////////////////////////
 
 
 /////////////// ПОЛУЧАЕМ ФОТО ИЗ МАССИВА/////////////////////////////////////////////////////////////////
-const ulPhotoGridList = document.querySelector(".photo-grid__list")
+const ulPhotoGridList = document.querySelector(".photo-grid__list");
 const initialCards = [{
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -56,37 +56,34 @@ const initialCards = [{
         name: 'Байкал',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-];
+]; //сама переносится расширением авторедактором 
 
 function createCard(arrayElement) {
     const cardElementemplate = document.querySelector(".fotocards").content.cloneNode(true); // Клонируем шаблон
+    const cardName = arrayElement.name;
     cardElementemplate.querySelector(".photo-grid__item").src = arrayElement.link; //вставляем данные в карточки из объекта data
-    cardElementemplate.querySelector(".photo-grid__item").alt = arrayElement.name;
-    cardElementemplate.querySelector(".photo-grid__place-name").textContent = arrayElement.name;
+    cardElementemplate.querySelector(".photo-grid__item").alt = cardName;
+    cardElementemplate.querySelector(".photo-grid__place-name").textContent = cardName;
     return cardElementemplate;
 }
 //Функция получает объект массива, создав константу отправляет его в функцию createCard, там получает шаблон
 function addCardToContainer(arrayElement) {
     const cardElement = createCard(arrayElement);
-    ulPhotoGridList.prepend(cardElement) //вставляет в разметку
+    ulPhotoGridList.prepend(cardElement); //вставляет в разметку
 
     //// навешивание обработчиков /////////
 
     ////////////// ЛАЙКИ /////////////////////////////////////////////////////////////////////////////////////////
     const likebutton = document.querySelector('.photo-grid__heart');
 
-    likebutton.addEventListener('click', function Liked() {
-            if (likebutton.classList.contains('photo-grid__heart_liked')) {
-                likebutton.classList.remove('photo-grid__heart_liked');
-            } else {
-                likebutton.classList.add('photo-grid__heart_liked');
-            }
-        })
-        ////////////// УДАЛЯЕМ КАРТОЧКИ  //////////////////
+    likebutton.addEventListener('click', function addOrRemoveLike() {
+        likebutton.classList.toggle("photo-grid__heart_liked");
+    });
+    ////////////// УДАЛЯЕМ КАРТОЧКИ  //////////////////
     const trashBin = document.querySelector('.photo-grid__trash-bin');
 
     trashBin.addEventListener('click', function delFotocard() {
-        const listItem = trashBin.closest('.photo-grid__spisok');
+        const listItem = trashBin.closest('.photo-grid__item-fotocard');
         listItem.remove();
     });
 
@@ -97,9 +94,6 @@ function addCardToContainer(arrayElement) {
     const bigFoto = document.querySelector('.popup__big-foto');
     const placeNameFotobeforZoom = document.querySelector('.photo-grid__place-name');
     const placeNameinZoom = document.querySelector('.popup__place-name_zoom');
-    console.log(bigFoto);
-    //console.log(placeNameFotobeforZoom);
-    // console.log(placeNameinZoom);
 
     //Открываем попап
     function zoomFoto() {
@@ -111,7 +105,7 @@ function addCardToContainer(arrayElement) {
 
     //Закрываем попап
     function closePopupImageZoom() {
-        popupImageZoom.classList.remove('popup_opened')
+        popupImageZoom.classList.remove('popup_opened');
     }
     closeZoomFotoButton.addEventListener('click', closePopupImageZoom);
 
@@ -122,7 +116,7 @@ function addCardToContainer(arrayElement) {
 const addButton = document.querySelector('.profile__addbutton');
 const popupNewplace = document.querySelector('.popup_newplace');
 const closeButtonNewplace = popupNewplace.querySelector('.popup__close-button_newplace');
-const formaNewplace = document.querySelector('.popup__form_newplace');
+const formNewplace = document.querySelector('.popup__form_newplace');
 const inputPlaceName = document.querySelector('.popup__input_name_place');
 const inputPlaceUrl = document.querySelector('.popup__input_name_url');
 ///ОТКРЫВАЕМ ПОПАП/////
@@ -132,7 +126,7 @@ function showPopupNewplace() {
 addButton.addEventListener('click', showPopupNewplace);
 ///ЗАКРЫВАЕМ ПОПАП/////
 function closePopupNewplace() {
-    popupNewplace.classList.remove('popup_opened')
+    popupNewplace.classList.remove('popup_opened');
 }
 closeButtonNewplace.addEventListener('click', closePopupNewplace);
 //ДОБАВЛЯЕМ НОВУЮ КАРТОЧКУ
@@ -144,11 +138,11 @@ function submitFormNewplace(e) {
     };
     addCardToContainer(newCard);
     closePopupNewplace();
-    formaNewplace.reset();
+    formNewplace.reset();
 }
-formaNewplace.addEventListener('submit', submitFormNewplace);
+formNewplace.addEventListener('submit', submitFormNewplace);
 ///////////////КОНЕЦ - POPUP для Добавления ФОТОКАРТОЧЕК ////////////////////////////////////////////////////////
 
 
 ////////// СОЗДАЕМ КАРТОЧКИ - Берем элементы массива - объекты и выполняем для них функцию создания карточек////////////
-initialCards.forEach(addCardToContainer)
+initialCards.forEach(addCardToContainer);
