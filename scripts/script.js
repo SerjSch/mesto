@@ -11,11 +11,12 @@ const closeZoomFotoButton = popupImageZoom.querySelector('.popup__close-button_z
 const placeNameinZoom = popupImageZoom.querySelector('.popup__place-name_zoom');
 
 //формы
-const form = profilePopup.querySelector('.popup__form');
 const profileName = document.querySelector('.profile__name');
 const discription = document.querySelector('.profile__discription');
-const inputName = document.querySelector('.popup__input_name_name');
-const inputDiscription = document.querySelector('.popup__input_name_discription');
+const form = profilePopup.querySelector('.popup__form');
+git
+const inputName = profilePopup.querySelector('.popup__input_name_name');
+const inputDiscription = profilePopup.querySelector('.popup__input_name_discription');
 const formNewplace = popupNewplace.querySelector('.popup__form_newplace');
 const inputPlaceName = popupNewplace.querySelector('.popup__input_name_place');
 const inputPlaceUrl = popupNewplace.querySelector('.popup__input_name_url');
