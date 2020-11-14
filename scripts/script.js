@@ -14,7 +14,6 @@ const placeNameinZoom = popupImageZoom.querySelector('.popup__place-name_zoom');
 const profileName = document.querySelector('.profile__name');
 const discription = document.querySelector('.profile__discription');
 const form = profilePopup.querySelector('.popup__form');
-git
 const inputName = profilePopup.querySelector('.popup__input_name_name');
 const inputDiscription = profilePopup.querySelector('.popup__input_name_discription');
 const formNewplace = popupNewplace.querySelector('.popup__form_newplace');
