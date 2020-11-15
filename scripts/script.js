@@ -26,7 +26,7 @@ function showProfilePopup() {
     inputName.value = profileName.textContent;
     inputDiscription.value = discription.textContent;
     showPopup(profilePopup);
-};
+}
 //Открываем попап
 function showPopup(popup) {
     popup.classList.add('popup_opened');
@@ -96,8 +96,9 @@ const initialCards = [{
 function createCard(arrayElement) {
     const cardElementemplate = document.querySelector(".fotocards").content.cloneNode(true); // Клонируем шаблон
     const cardName = arrayElement.name;
-    cardElementemplate.querySelector(".photo-grid__item").src = arrayElement.link; //вставляем данные в карточки из объекта data
-    cardElementemplate.querySelector(".photo-grid__item").alt = cardName;
+    const cardItem = cardElementemplate.querySelector(".photo-grid__item");
+    cardItem.src = arrayElement.link; //вставляем данные в карточки из объекта data
+    cardItem.alt = cardName;
     cardElementemplate.querySelector(".photo-grid__place-name").textContent = cardName;
     // //// навешивание обработчиков /////////
 
@@ -117,15 +118,14 @@ function createCard(arrayElement) {
     });
 
     // ///////////////POPUP для Фотозума//////////////////////////////////////////////////////////////////////////
-    const fotoToZoom = cardElementemplate.querySelector('.photo-grid__item');
     const placeNameFotobeforZoom = cardElementemplate.querySelector('.photo-grid__place-name');
     //Открываем попап
     function zoomFoto() {
-        bigFoto.src = fotoToZoom.src;
+        bigFoto.src = cardItem.src;
         placeNameinZoom.textContent = placeNameFotobeforZoom.textContent;
         showPopup(popupImageZoom);
     }
-    fotoToZoom.addEventListener('click', zoomFoto);
+    cardItem.addEventListener('click', zoomFoto);
 
     return cardElementemplate;
 }
