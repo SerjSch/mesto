@@ -66,7 +66,7 @@ closeButtonNewplace.addEventListener('click', () => closePopup(popupNewplace));
 closeZoomFotoButton.addEventListener('click', () => closePopup(popupImageZoom));
 
 /////////////// ПОЛУЧАЕМ ФОТО ИЗ МАССИВА/////////////////////////////////////////////////////////////////
-const ulPhotoGridList = document.querySelector(".photo-grid__list");
+const ulPhotoGridList = document.querySelector(".photo-grid__list"); //Разметка куда вставляем карточки
 const initialCards = [{
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -94,16 +94,18 @@ const initialCards = [{
 ]; //сама переносится расширением авторедактором 
 
 function createCard(arrayElement) {
-    const cardElementemplate = document.querySelector(".fotocards").content.cloneNode(true); // Клонируем шаблон
-    const cardName = arrayElement.name;
-    const cardItem = cardElementemplate.querySelector(".photo-grid__item");
-    cardItem.src = arrayElement.link; //вставляем данные в карточки из объекта data
-    cardItem.alt = cardName;
-    cardElementemplate.querySelector(".photo-grid__place-name").textContent = cardName;
+    const temlateHtml = document.querySelector(".fotocards");
+    const cardElementemplate = temlateHtml.content.cloneNode(true); // Клонируем шаблон
+    const cardName = arrayElement.name; //Имя из объекта
+    const cardUrl = arrayElement.link; //Ссылка из объекта
+    const cardItem = cardElementemplate.querySelector(".photo-grid__item"); //Картинка карточки
+    const cardZagolovok = cardElementemplate.querySelector(".photo-grid__place-name"); //h2 карточки
+    cardItem.src = cardUrl; //вставляем данные в карточку из объекта массива
+    cardItem.alt = cardName; //вставляем данные в карточку из объекта массива
+    cardZagolovok.textContent = cardName; //вставляем данные в карточку из объекта массива
     // //// навешивание обработчиков /////////
 
     // ////////////// ЛАЙКИ /////////////////////////////////////////////////////////////////////////////////////////
-
     const likebutton = cardElementemplate.querySelector('.photo-grid__heart');
 
     likebutton.addEventListener('click', function addOrRemoveLike() {
@@ -117,12 +119,11 @@ function createCard(arrayElement) {
         listItem.remove();
     });
 
-    // ///////////////POPUP для Фотозума//////////////////////////////////////////////////////////////////////////
-    const placeNameFotobeforZoom = cardElementemplate.querySelector('.photo-grid__place-name');
+    /////////////////POPUP для Фотозума//////////////////////////////////////////////////////////////////////////
     //Открываем попап
     function zoomFoto() {
-        bigFoto.src = cardItem.src;
-        placeNameinZoom.textContent = placeNameFotobeforZoom.textContent;
+        bigFoto.src = cardUrl;
+        placeNameinZoom.textContent = cardName;
         showPopup(popupImageZoom);
     }
     cardItem.addEventListener('click', zoomFoto);
