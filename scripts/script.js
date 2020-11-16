@@ -93,8 +93,9 @@ const initialCards = [{
     }
 ]; //сама переносится расширением авторедактором 
 
+const temlateHtml = document.querySelector(".fotocards");
+
 function createCard(arrayElement) {
-    const temlateHtml = document.querySelector(".fotocards");
     const cardElementemplate = temlateHtml.content.cloneNode(true); // Клонируем шаблон
     const cardName = arrayElement.name; //Имя из объекта
     const cardUrl = arrayElement.link; //Ссылка из объекта
