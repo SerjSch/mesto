@@ -100,10 +100,10 @@ function createCard(arrayElement) {
     const cardName = arrayElement.name; //Имя из объекта
     const cardUrl = arrayElement.link; //Ссылка из объекта
     const cardItem = cardElementemplate.querySelector(".photo-grid__item"); //Картинка карточки
-    const cardZagolovok = cardElementemplate.querySelector(".photo-grid__place-name"); //h2 карточки
+    const cardTitel = cardElementemplate.querySelector(".photo-grid__place-name"); //h2 карточки
     cardItem.src = cardUrl; //вставляем данные в карточку из объекта массива
     cardItem.alt = cardName; //вставляем данные в карточку из объекта массива
-    cardZagolovok.textContent = cardName; //вставляем данные в карточку из объекта массива
+    cardTitel.textContent = cardName; //вставляем данные в карточку из объекта массива
     // //// навешивание обработчиков /////////
 
     // ////////////// ЛАЙКИ /////////////////////////////////////////////////////////////////////////////////////////
