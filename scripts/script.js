@@ -30,11 +30,24 @@ function showProfilePopup() {
 //Открываем попап
 function showPopup(popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', keyHandlerEscape);
+    document.addEventListener('mousedown', mouseOverlayClick);
 }
 //Закрываем попап
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', keyHandlerEscape);
+    document.removeEventListener('mousedown', mouseOverlayClick);
 }
+//Закрытие попапа кликом на оверлей
+function mouseOverlayClick(evt) {
+    if (evt.target.classList.contains('popup_opened')) { closePopup(document.querySelector('.popup_opened')) }
+}
+//Закрываем попап с Escape
+function keyHandlerEscape(event) {
+    if (event.key === 'Escape') { closePopup(document.querySelector('.popup_opened')) }
+}
+
 //Заполняем форму профиля
 function submitForm(e) {
     e.preventDefault();
