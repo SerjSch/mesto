@@ -47,13 +47,23 @@ function enableValidation(config) {
 
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
-            //console.log('отправка формы');
         });
 
         const submitButton = form.querySelector(config.submitButtonSelector);
         setButtonState(submitButton, form.checkValidity(), config)
     });
 }
+/////////////////////////////////////////////////////////////////////////////////////
+function resetValidationState(form, config) {
+    const inputsList = form.querySelectorAll(config.inputSelector);
+    inputsList.forEach((input) => {
+        hideError(form, input, config);
+    });
+    const submitButton = form.querySelector(config.submitButtonSelector);
+    submitButton.classList.add(config.buttonInvalidClass);
+    submitButton.disabled = true;
+}
+///////////////////////////////////////////////////////////////////////////////
 
 const validationConfig = {
     formSelector: '.popup__form',

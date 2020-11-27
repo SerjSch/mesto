@@ -25,27 +25,32 @@ const bigFoto = popupImageZoom.querySelector('.popup__big-foto');
 function showProfilePopup() {
     inputName.value = profileName.textContent;
     inputDiscription.value = discription.textContent;
+    resetValidationState(profilePopup, validationConfig);
     showPopup(profilePopup);
 }
 //Открываем попап
 function showPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', keyHandlerEscape);
-    document.addEventListener('mousedown', mouseOverlayClick);
+    document.addEventListener('mousedown', closePopupWithMouseclickOnOverlay);
 }
 //Закрываем попап
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', keyHandlerEscape);
-    document.removeEventListener('mousedown', mouseOverlayClick);
+    document.removeEventListener('mousedown', closePopupWithMouseclickOnOverlay);
 }
 //Закрытие попапа кликом на оверлей
-function mouseOverlayClick(evt) {
-    if (evt.target.classList.contains('popup_opened')) { closePopup(document.querySelector('.popup_opened')) }
+function closePopupWithMouseclickOnOverlay(evt) {
+    if (evt.target.classList.contains('popup_opened')) {
+        closePopup(evt.target)
+    }
 }
 //Закрываем попап с Escape
+const escape = 'Escape';
+
 function keyHandlerEscape(event) {
-    if (event.key === 'Escape') { closePopup(document.querySelector('.popup_opened')) }
+    if (event.key === escape) { closePopup(document.querySelector('.popup_opened')) }
 }
 
 //Заполняем форму профиля
@@ -65,6 +70,7 @@ function submitFormNewplace(e) {
     addCardToContainer(newCard);
     closePopup(popupNewplace);
     formNewplace.reset();
+    resetValidationState(formNewplace, validationConfig);
 }
 
 //Слушатели
