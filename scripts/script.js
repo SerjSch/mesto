@@ -10,7 +10,7 @@ const closeButtonNewplace = popupNewplace.querySelector('.popup__close-button_ne
 const closeZoomFotoButton = popupImageZoom.querySelector('.popup__close-button_zoom');
 const placeNameinZoom = popupImageZoom.querySelector('.popup__place-name_zoom');
 
-//формы
+//Формы
 const profileName = document.querySelector('.profile__name');
 const discription = document.querySelector('.profile__discription');
 const form = profilePopup.querySelector('.popup__form');
