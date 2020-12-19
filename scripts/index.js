@@ -45,6 +45,12 @@ initialCards.forEach((item) => {
     ulPhotoGridList.prepend(cardElement); //вставляет в разметку
 });
 
+function addCardToContainer(item) {
+    const card = new Card(item);
+    const cardElement = card._createCard();
+    ulPhotoGridList.prepend(cardElement); //вставляет в разметку
+};
+
 
 //Попапы
 const profilePopup = document.querySelector('.popup');
@@ -76,7 +82,7 @@ formNewplaceValidator.enableValidation();
 function showProfilePopup() {
     inputName.value = profileName.textContent;
     inputDiscription.value = discription.textContent;
-    //resetValidationState(profilePopup, validationConfig);
+    formNewplaceValidator.resetValidationState();
     showPopup(profilePopup);
 }
 //Открываем попап
@@ -90,6 +96,7 @@ function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', keyHandlerEscape);
     document.removeEventListener('mousedown', closePopupWithMouseclickOnOverlay);
+    formNewplaceValidator.resetValidationState();
 }
 //Закрытие попапа кликом на оверлей
 function closePopupWithMouseclickOnOverlay(evt) {
@@ -121,7 +128,7 @@ function submitFormNewplace(e) {
     addCardToContainer(newCard);
     closePopup(popupNewplace);
     formNewplace.reset();
-    resetValidationState(formNewplace, validationConfig);
+    formNewplaceValidator.resetValidationState();
 }
 
 //Слушатели

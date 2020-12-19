@@ -51,7 +51,7 @@ export class FormValidator {
     resetValidationState() {
         const inputsList = this._form.querySelectorAll(this._config.inputSelector);
         inputsList.forEach((input) => {
-            hideError(this._form, input, this._config);
+            this._hideError(this._form, input, this._config);
         });
         const submitButton = this._form.querySelector(this._config.submitButtonSelector);
         submitButton.classList.add(this._config.buttonInvalidClass);
