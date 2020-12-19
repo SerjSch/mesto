@@ -1,8 +1,7 @@
-class FormValidator {
+export class FormValidator {
     constructor(validationConfig, form) {
         this._validationConfig = validationConfig;
         this._form = form;
-        this._formNewplace = formNewplace;
     }
     _checkInputValidity(input) {
         if (!input.validity.valid) {
@@ -42,7 +41,7 @@ class FormValidator {
         input.classList.remove(this._config.inputInvalidClass);
     }
     enableValidation() {
-        _setEventListeners(this._form, this._config);
+        //_setEventListeners(this._form, this._config);
         this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });

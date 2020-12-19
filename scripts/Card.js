@@ -1,6 +1,5 @@
 import { zoomFoto } from './utils.js';
-
-class Card {
+export class Card {
     constructor(data) {
         this._name = data.name;
         this._link = data.link;
@@ -45,9 +44,3 @@ class Card {
         this._cardElementemplate.querySelector('.photo-grid__trash-bin').closest('.photo-grid__item-fotocard').remove();
     }
 }
-// Переберём весь исходный массив
-initialCards.forEach((item) => {
-    const card = new Card(item);
-    const cardElement = card._createCard();
-    ulPhotoGridList.prepend(cardElement); //вставляет в разметку
-});

@@ -1,5 +1,10 @@
+import { FormValidator } from './FormValidator.js';
+import { Card } from './Card.js';
+import { zoomFoto } from './utils.js';
+
+
 /////////////// ПОЛУЧАЕМ ФОТО ИЗ МАССИВА/////////////////////////////////////////////////////////////////
-const initialCards = [{
+export const initialCards = [{
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
     },
@@ -34,6 +39,13 @@ const validationConfig = {
     inputInvalidClass: 'popup__input_state_invalid',
     buttonInvalidClass: 'popup__save-button_invalid',
 };
+
+// Переберём весь исходный массив
+initialCards.forEach((item) => {
+    const card = new Card(item);
+    const cardElement = card._createCard();
+    ulPhotoGridList.prepend(cardElement); //вставляет в разметку
+});
 
 //Попапы
 const profilePopup = document.querySelector('.popup');
