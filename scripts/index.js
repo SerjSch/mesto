@@ -82,7 +82,7 @@ formNewplaceValidator.enableValidation();
 function showProfilePopup() {
     inputName.value = profileName.textContent;
     inputDiscription.value = discription.textContent;
-    formNewplaceValidator.resetValidationState();
+    profileFormValidator.resetValidationState();
     showPopup(profilePopup);
 }
 //Открываем попап
@@ -96,6 +96,7 @@ function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', keyHandlerEscape);
     document.removeEventListener('mousedown', closePopupWithMouseclickOnOverlay);
+    formNewplace.reset();
     formNewplaceValidator.resetValidationState();
 }
 //Закрытие попапа кликом на оверлей
