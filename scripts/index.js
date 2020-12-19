@@ -64,14 +64,14 @@ const profileName = document.querySelector('.profile__name');
 const discription = document.querySelector('.profile__discription');
 const inputName = profilePopup.querySelector('.popup__input_name_name');
 const inputDiscription = profilePopup.querySelector('.popup__input_name_discription');
-const profileFormValidator = new FormValidator();
-profileFormValidator.enableValidation(form, validationConfig)
+const profileFormValidator = new FormValidator(form, validationConfig);
+profileFormValidator.enableValidation();
 
 const formNewplace = popupNewplace.querySelector('.popup__form_newplace');
 const inputPlaceName = popupNewplace.querySelector('.popup__input_name_place');
 const inputPlaceUrl = popupNewplace.querySelector('.popup__input_name_url');
-const formNewplaceValidator = new FormValidator();
-formNewplaceValidator.enableValidation(formNewplace, validationConfig);
+const formNewplaceValidator = new FormValidator(formNewplace, validationConfig);
+formNewplaceValidator.enableValidation();
 
 //Добавляем в форму текст профиля и открываем попап
 function showProfilePopup() {

@@ -1,7 +1,7 @@
 export class FormValidator {
-    constructor(validationConfig, form) {
-        this._validationConfig = validationConfig;
+    constructor(form, validationConfig) {
         this._form = form;
+        this._validationConfig = validationConfig;
     }
     _checkInputValidity(input) {
         if (!input.validity.valid) {
@@ -41,12 +41,12 @@ export class FormValidator {
         input.classList.remove(this._config.inputInvalidClass);
     }
     enableValidation() {
-        //_setEventListeners(this._form, this._config);
+        this._setEventListeners(this._form, this._config);
         this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
         const submitButton = this._form.querySelector(this._config.submitButtonSelector);
-        _setButtonState(submitButton, this._form.checkValidity(), this._config);
+        this._setButtonState(submitButton, this._form.checkValidity(), this._config);
     }
     resetValidationState() {
         const inputsList = this._form.querySelectorAll(this._config.inputSelector);
