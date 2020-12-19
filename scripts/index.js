@@ -1,7 +1,5 @@
 import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
-import { zoomFoto } from './utils.js';
-
 
 /////////////// ПОЛУЧАЕМ ФОТО ИЗ МАССИВА/////////////////////////////////////////////////////////////////
 export const initialCards = [{
@@ -46,6 +44,7 @@ initialCards.forEach((item) => {
     const cardElement = card._createCard();
     ulPhotoGridList.prepend(cardElement); //вставляет в разметку
 });
+
 
 //Попапы
 const profilePopup = document.querySelector('.popup');
