@@ -51,28 +51,3 @@ initialCards.forEach((item) => {
     const cardElement = card._createCard();
     ulPhotoGridList.prepend(cardElement); //вставляет в разметку
 });
-
-// _setEventListeners() {
-//     this._cardElementemplate.querySelector('.photo-grid__heart').addEventListener('click', () => {
-//         this._handleLikeClick();
-//     });  
-//     // this._cardElementemplate.querySelector('.photo-grid__trash-bin').addEventListener('click', () => {
-//     //     this._handleDelClick();
-//     // });
-//     // this._cardElementemplate._cardItem.addEventListener('click', () => {
-//     //     this._handleLZoomFotoClick();
-//     // });
-// }
-// _handleLikeClick() {
-//     this._cardElementemplate.querySelector('.photo-grid__heart').classList.toggle('photo-grid__heart_liked');
-// }
-
-// _handleLDelClick() {
-//     this._cardElementemplate.querySelector('.photo-grid__trash-bin').closest('.photo-grid__item-fotocard').remove();
-// }
-// _handleLZoomFotoClick() {
-//     this.zoom = this._cardElementemplate.querySelector('.popup_image-zoom');
-//     this._cardElementemplate.querySelector('.popup__big-foto').src = this._cardUrl;
-//     this._cardElementemplate.querySelector('.popup__place-name_zoom').textContent = this._cardName;
-//     showPopup(zoom);
-// }

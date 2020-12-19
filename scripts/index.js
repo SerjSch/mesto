@@ -27,7 +27,13 @@ const initialCards = [{
 
 const ulPhotoGridList = document.querySelector(".photo-grid__list"); //Разметка куда вставляем карточки
 
-
+const validationConfig = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save-button',
+    inputInvalidClass: 'popup__input_state_invalid',
+    buttonInvalidClass: 'popup__save-button_invalid',
+};
 
 //Попапы
 const profilePopup = document.querySelector('.popup');
@@ -41,15 +47,19 @@ const closeButtonNewplace = popupNewplace.querySelector('.popup__close-button_ne
 
 
 //Формы
+const form = profilePopup.querySelector('.popup__form');
 const profileName = document.querySelector('.profile__name');
 const discription = document.querySelector('.profile__discription');
-const form = profilePopup.querySelector('.popup__form');
 const inputName = profilePopup.querySelector('.popup__input_name_name');
 const inputDiscription = profilePopup.querySelector('.popup__input_name_discription');
+const profileFormValidator = new FormValidator();
+profileFormValidator.enableValidation(form, validationConfig)
+
 const formNewplace = popupNewplace.querySelector('.popup__form_newplace');
 const inputPlaceName = popupNewplace.querySelector('.popup__input_name_place');
 const inputPlaceUrl = popupNewplace.querySelector('.popup__input_name_url');
-
+const formNewplaceValidator = new FormValidator();
+formNewplaceValidator.enableValidation(formNewplace, validationConfig);
 
 //Добавляем в форму текст профиля и открываем попап
 function showProfilePopup() {

@@ -1,84 +1,61 @@
 class FormValidator {
-    constructor(validationConfig, artist) {
-        this.validationConfig = validationConfig;
+    constructor(validationConfig, form) {
+        this._validationConfig = validationConfig;
+        this._form = form;
+        this._formNewplace = formNewplace;
     }
-
-    _checkInputValidity(form, input, config) {
+    _checkInputValidity(input) {
         if (!input.validity.valid) {
-            showError(form, input, config);
+            showError(this._form, input, this._config);
         } else {
-            hideError(form, input, config);
+            hideError(this._form, input, this._config);
         }
     }
-
-    _setButtonState(button, isActive, config) {
+    _setButtonState(button, isActive) {
         if (isActive) {
-            button.classList.remove(config.buttonInvalidClass);
+            button.classList.remove(this._config.buttonInvalidClass);
             button.disabled = false;
         } else {
-            button.classList.add(config.buttonInvalidClass);
+            button.classList.add(this._config.buttonInvalidClass);
             button.disabled = true;
         }
     }
-
-    _setEventListeners(form, config) {
-        const inputsList = form.querySelectorAll(config.inputSelector);
-        const submitButton = form.querySelector(config.submitButtonSelector);
+    _setEventListeners() {
+        const inputsList = this._form.querySelectorAll(this._config.inputSelector);
+        const submitButton = this._form.querySelector(this._config.submitButtonSelector);
 
         inputsList.forEach((input) => {
             input.addEventListener('input', () => {
-                checkInputValidity(form, input, config);
-                setButtonState(submitButton, form.checkValidity(), config);
+                checkInputValidity(this._form, input, this._config);
+                setButtonState(submitButton, this._form.checkValidity(), this._config);
             });
         });
     }
-
-    enableValidation(config) {
-        const forms = document.querySelectorAll(config.formSelector);
-        forms.forEach((form) => {
-            setEventListeners(form, config);
-
-            form.addEventListener('submit', (evt) => {
-                evt.preventDefault();
-            });
-
-            const submitButton = form.querySelector(config.submitButtonSelector);
-            setButtonState(submitButton, form.checkValidity(), config)
-        });
+    _showError(input) {
+        const error = this._form.querySelector(`#${input.id}-error`);
+        error.textContent = input.validationMessage;
+        input.classList.add(this._config.inputInvalidClass);
     }
-
+    _hideError(input) {
+        const error = this._form.querySelector(`#${input.id}-error`);
+        error.textContent = '';
+        input.classList.remove(this._config.inputInvalidClass);
+    }
+    enableValidation() {
+        _setEventListeners(this._form, this._config);
+        this._form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+        });
+        const submitButton = this._form.querySelector(this._config.submitButtonSelector);
+        _setButtonState(submitButton, this._form.checkValidity(), this._config);
+    }
+    resetValidationState() {
+        const inputsList = this._form.querySelectorAll(this._config.inputSelector);
+        inputsList.forEach((input) => {
+            hideError(this._form, input, this._config);
+        });
+        const submitButton = this._form.querySelector(this._config.submitButtonSelector);
+        submitButton.classList.add(this._config.buttonInvalidClass);
+        submitButton.disabled = true;
+    }
 }
-
-function showError(form, input, config) {
-    const error = form.querySelector(`#${input.id}-error`);
-    error.textContent = input.validationMessage;
-    input.classList.add(config.inputInvalidClass);
-}
-
-function hideError(form, input, config) {
-    const error = form.querySelector(`#${input.id}-error`);
-    error.textContent = '';
-    input.classList.remove(config.inputInvalidClass);
-}
-
-/////////////////////////////////////////////////////////////////////////////////////
-function resetValidationState(form, config) {
-    const inputsList = form.querySelectorAll(config.inputSelector);
-    inputsList.forEach((input) => {
-        hideError(form, input, config);
-    });
-    const submitButton = form.querySelector(config.submitButtonSelector);
-    submitButton.classList.add(config.buttonInvalidClass);
-    submitButton.disabled = true;
-}
-///////////////////////////////////////////////////////////////////////////////
-
-const validationConfig = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__save-button',
-    inputInvalidClass: 'popup__input_state_invalid',
-    buttonInvalidClass: 'popup__save-button_invalid',
-};
-
-enableValidation(validationConfig);
