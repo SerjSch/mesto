@@ -1,6 +1,6 @@
 import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
-
+import { showPopup, closePopup } from './utils.js';
 /////////////// ПОЛУЧАЕМ ФОТО ИЗ МАССИВА/////////////////////////////////////////////////////////////////
 export const initialCards = [{
         name: 'Архыз',
@@ -27,9 +27,6 @@ export const initialCards = [{
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
-
-const ulPhotoGridList = document.querySelector(".photo-grid__list"); //Разметка куда вставляем карточки
-
 const validationConfig = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
@@ -37,47 +34,49 @@ const validationConfig = {
     inputInvalidClass: 'popup__input_state_invalid',
     buttonInvalidClass: 'popup__save-button_invalid',
 };
-
-// Переберём весь исходный массив
-initialCards.forEach((item) => {
-    const card = new Card(item);
-    const cardElement = card._createCard();
-    ulPhotoGridList.prepend(cardElement); //вставляет в разметку
-});
-
-function addCardToContainer(item) {
-    const card = new Card(item);
-    const cardElement = card._createCard();
-    ulPhotoGridList.prepend(cardElement); //вставляет в разметку
-};
-
-
+const cardTemplate = document.querySelector('.fotocards').content;
 //Попапы
 const profilePopup = document.querySelector('.popup');
 const popupNewplace = document.querySelector('.popup_newplace');
-
 //Кнопки
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__addbutton');
 const closeButton = profilePopup.querySelector('.popup__close-button');
 const closeButtonNewplace = popupNewplace.querySelector('.popup__close-button_newplace');
-
-
-//Формы
+//Форма профиля
 const form = profilePopup.querySelector('.popup__form');
 const profileName = document.querySelector('.profile__name');
 const discription = document.querySelector('.profile__discription');
 const inputName = profilePopup.querySelector('.popup__input_name_name');
 const inputDiscription = profilePopup.querySelector('.popup__input_name_discription');
+//Класс FormValidator
 const profileFormValidator = new FormValidator(form, validationConfig);
 profileFormValidator.enableValidation();
-
+//Форма карточки
 const formNewplace = popupNewplace.querySelector('.popup__form_newplace');
 const inputPlaceName = popupNewplace.querySelector('.popup__input_name_place');
 const inputPlaceUrl = popupNewplace.querySelector('.popup__input_name_url');
+//Класс FormValidator
 const formNewplaceValidator = new FormValidator(formNewplace, validationConfig);
 formNewplaceValidator.enableValidation();
 
+///////////////Функции///////////////////////////
+function putCardElementInDom(item) {
+    const ulPhotoGridList = document.querySelector(".photo-grid__list"); //Разметка куда вставляем карточки
+    ulPhotoGridList.prepend(item); //вставляет в разметку
+};
+// Переберём весь исходный массив
+initialCards.forEach((item) => {
+    const card = new Card(item, cardTemplate);
+    const cardElement = card._createCard();
+    putCardElementInDom(cardElement);
+});
+
+function addCardToContainer(item) {
+    const card = new Card(item, cardTemplate);
+    const cardElement = card._createCard();
+    putCardElementInDom(cardElement);
+};
 //Добавляем в форму текст профиля и открываем попап
 function showProfilePopup() {
     inputName.value = profileName.textContent;
@@ -85,33 +84,6 @@ function showProfilePopup() {
     profileFormValidator.resetValidationState();
     showPopup(profilePopup);
 }
-//Открываем попап
-function showPopup(popup) {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keydown', keyHandlerEscape);
-    document.addEventListener('mousedown', closePopupWithMouseclickOnOverlay);
-}
-//Закрываем попап
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', keyHandlerEscape);
-    document.removeEventListener('mousedown', closePopupWithMouseclickOnOverlay);
-    formNewplace.reset();
-    formNewplaceValidator.resetValidationState();
-}
-//Закрытие попапа кликом на оверлей
-function closePopupWithMouseclickOnOverlay(evt) {
-    if (evt.target.classList.contains('popup_opened')) {
-        closePopup(evt.target)
-    }
-}
-//Закрываем попап с Escape
-const escape = 'Escape';
-
-function keyHandlerEscape(event) {
-    if (event.key === escape) { closePopup(document.querySelector('.popup_opened')) }
-}
-
 //Заполняем форму профиля
 function submitForm(e) {
     e.preventDefault();
@@ -131,8 +103,7 @@ function submitFormNewplace(e) {
     formNewplace.reset();
     formNewplaceValidator.resetValidationState();
 }
-
-//Слушатели
+//////////////Слушатели///////////////////////////////////
 form.addEventListener('submit', submitForm); //форма профиля
 formNewplace.addEventListener('submit', submitFormNewplace); //форма фотокарточки
 //Слушатели кнопки открываения

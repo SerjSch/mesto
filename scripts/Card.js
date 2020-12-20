@@ -1,27 +1,24 @@
 import { zoomFoto } from './utils.js';
 export class Card {
-    constructor(data) {
+    constructor(data, cardTemplate) {
         this._name = data.name;
         this._link = data.link;
-        this._zoomFoto = zoomFoto;
+        this._cardTemplate = cardTemplate;
     }
     _getTemplate() {
         // забираем размеку из HTML и клонируем элемент
-        const cardElement = document.querySelector('.fotocards').content.querySelector('.photo-grid__item-fotocard').cloneNode(true);
+        const cardElement = this._cardTemplate.querySelector('.photo-grid__item-fotocard')
+            .cloneNode(true);
         // вернём DOM-элемент карточки
         return cardElement;
     }
     _createCard() {
         this._cardElementemplate = this._getTemplate();
+        this._cardElementemplate.querySelector(".photo-grid__item").src = this._link;
+        this._cardElementemplate.querySelector(".photo-grid__item").alt = this._name;
+        this._cardElementemplate.querySelector(".photo-grid__place-name")
+            .textContent = this._name;
         this._setEventListeners();
-        this._cardName = this._name; //Имя из объекта
-        this._cardUrl = this._link; //Ссылка из объекта
-        this._cardItem = this._cardElementemplate.querySelector(".photo-grid__item"); //Картинка карточки
-        this._cardTitel = this._cardElementemplate.querySelector(".photo-grid__place-name"); //h2 карточки
-        this._cardItem.src = this._cardUrl; //вставляем данные в карточку из объекта массива
-        this._cardItem.alt = this._cardName; //вставляем данные в карточку из объекта массива
-        this._cardTitel.textContent = this._cardName; //вставляем данные в карточку из объекта массива
-        this._zoomFoto = zoomFoto;
         return this._cardElementemplate;
     }
     _setEventListeners() {
@@ -34,8 +31,6 @@ export class Card {
         this._cardElementemplate.querySelector(".photo-grid__item").addEventListener('click', () => {
             zoomFoto(this._name, this._link);
         });
-
-
     }
     _handleLikeClick() {
         this._cardElementemplate.querySelector('.photo-grid__heart').classList.toggle('photo-grid__heart_liked');
