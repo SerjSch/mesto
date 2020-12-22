@@ -15,6 +15,8 @@ export class Card {
     _createCard() {
         this._cardElementemplate = this._getTemplate();
         this._photoGridItem = this._cardElementemplate.querySelector(".photo-grid__item")
+        this._photoGridHeart = this._cardElementemplate.querySelector('.photo-grid__heart')
+        this._photoGridTrashBin = this._cardElementemplate.querySelector('.photo-grid__trash-bin')
         this._photoGridItem.src = this._link;
         this._photoGridItem.alt = this._name;
         this._cardElementemplate.querySelector(".photo-grid__place-name")
@@ -23,20 +25,20 @@ export class Card {
         return this._cardElementemplate;
     }
     _setEventListeners() {
-        this._cardElementemplate.querySelector('.photo-grid__heart').addEventListener('click', () => {
+        this._photoGridHeart.addEventListener('click', () => {
             this._handleLikeClick();
         });
-        this._cardElementemplate.querySelector('.photo-grid__trash-bin').addEventListener('click', () => {
+        this._photoGridTrashBin.addEventListener('click', () => {
             this._handleDelClick();
         });
-        this._cardElementemplate.querySelector(".photo-grid__item").addEventListener('click', () => {
+        this._photoGridItem.addEventListener('click', () => {
             zoomFoto(this._name, this._link);
         });
     }
     _handleLikeClick() {
-        this._cardElementemplate.querySelector('.photo-grid__heart').classList.toggle('photo-grid__heart_liked');
+        this._photoGridHeart.classList.toggle('photo-grid__heart_liked');
     }
     _handleDelClick() {
-        this._cardElementemplate.querySelector('.photo-grid__trash-bin').closest('.photo-grid__item-fotocard').remove();
+        this._cardElementemplate.remove();
     }
 }
