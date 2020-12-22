@@ -14,8 +14,9 @@ export class Card {
     }
     _createCard() {
         this._cardElementemplate = this._getTemplate();
-        this._cardElementemplate.querySelector(".photo-grid__item").src = this._link;
-        this._cardElementemplate.querySelector(".photo-grid__item").alt = this._name;
+        this._photoGridItem = this._cardElementemplate.querySelector(".photo-grid__item")
+        this._photoGridItem.src = this._link;
+        this._photoGridItem.alt = this._name;
         this._cardElementemplate.querySelector(".photo-grid__place-name")
             .textContent = this._name;
         this._setEventListeners();
