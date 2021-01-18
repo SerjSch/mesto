@@ -2,11 +2,24 @@ import { Popup } from './Popup.js';
 export class PopupWithForm extends Popup {
     constructor(popupSelector, submitForm) {
         super(popupSelector);
-        //this._popupSelector = popupSelector;
         this._submitForm = submitForm;
     }
     open() {
         super.open();
+    }
+
+    //Содержит приватный метод _getInputValues, который собирает данные всех полей формы.
+    _getInputValues() {
+        // достаём все элементы полей
+        this._inputList = this._popupSelector.querySelectorAll('.popup__input');
+        // создаём пустой объект
+        this._formValues = {};
+        // добавляем в этот объект значения всех полей
+        this._inputList.forEach(input => {
+            this._formValues[input.name] = input.value;
+        });
+        // возвращаем объект значений
+        return this._formValues;
     }
 
     // Перезаписывает родительский метод setEventListeners. 
@@ -15,7 +28,6 @@ export class PopupWithForm extends Popup {
 
     _setEventListeners() {
         super._setEventListeners();
-
         this._submit = this.submitFormAndGetInfo.bind(this);
         this._popupSelector.addEventListener('submit', this._submit);
     }
@@ -26,25 +38,12 @@ export class PopupWithForm extends Popup {
         this.close()
     }
 
-
-    //Содержит приватный метод _getInputValues, который собирает данные всех полей формы.
-    _getInputValues() {
-        this._inputList = this._popupSelector.querySelectorAll('.popup__input');
-        this._formValues = {};
-        this._inputList.forEach(input => {
-            this._formValues[input.name] = input.value;
-        });
-        return this._formValues;
-
-    }
-
-
     //Перезаписывает родительский метод close,
     // так как при закрытии попапа форма должна ещё и сбрасываться.
     close() {
         super.close();
-        this._popupSelector.removeEventListener('submit', this.submitForm);
-        //formNewplace.reset();
+        this._popupSelector.removeEventListener('submit', this._submitForm);
+        //this._form = this._popupSelector.querySelector('.popup__form').reset();
         //formNewplaceValidator.resetValidationState();
     }
 }
