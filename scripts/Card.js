@@ -37,7 +37,7 @@ export class Card {
             this._handleDelClick();
         });
         this._photoGridItem.addEventListener('click', () => {
-            this.handleCardClick(this._photoGridItem);
+            this.handleCardClick();
         });
     }
     _handleLikeClick() {
