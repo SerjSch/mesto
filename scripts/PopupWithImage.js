@@ -7,7 +7,7 @@ export class PopupWithImage extends Popup {
         this.bigFoto = this.popupSelector.querySelector('.popup__big-foto');
         this.placeNameinZoom = this.popupSelector.querySelector('.popup__place-name_zoom');
     }
-    openPopupWithImage(data) {
+    open(data) {
         super.open(); // вызываем родительский метод
         // дополним  новой функциональностью:
         this.bigFoto.src = data.link

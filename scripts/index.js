@@ -55,7 +55,7 @@ const cards = new Section({
         renderer: (item) => {
             const card = new Card({
                     data: item,
-                    handleCardClick: () => {
+                    handleCardClick: (item) => {
                         popupWithImage.open(item);
                     }
                 },
