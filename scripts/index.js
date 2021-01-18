@@ -29,11 +29,15 @@ formNewplaceValidator.enableValidation();
 
 //НОВЫЕ КЛАССЫ ////////////////////////////////////////////////////////////////
 const userInfoClass = new UserInfo(ProfileInfo);
+//Принимает в конструктор объект с селекторами двух элементов: элемента имени пользователя и элемента информации о себе.
+
+
 
 const profilePopupWithForm = new PopupWithForm(
+    //Кроме селектора попапа принимает в конструктор колбэк сабмита формы.
     profilePopupReal,
-    (ProfileInfo) => {
-        userInfoClass.setUserInfo(ProfileInfo);
+    (data) => {
+        userInfoClass.setUserInfo(data);
     }
     //profilePopupWithForm.submitFormAndGetInfo();
     //profileFormValidator.resetValidationState();
@@ -72,5 +76,7 @@ const cards = new Section({
 cards.renderItems();
 
 //////////////Слушатели/////////////////////////////////////////////////
-editButton.addEventListener('click', () => profilePopupWithForm.open());
+editButton.addEventListener('click', () => profilePopupWithForm.open(), () => userInfoClass.getUserInfo());
 addButton.addEventListener('click', () => newplacePopupWithForm.open());
+
+console.log(ProfileInfo);
