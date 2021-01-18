@@ -28,12 +28,12 @@ const formNewplaceValidator = new FormValidator(formNewplace, validationConfig);
 formNewplaceValidator.enableValidation();
 
 //НОВЫЕ КЛАССЫ ////////////////////////////////////////////////////////////////
-const userInfo = new UserInfo(ProfileInfo);
+const userInfoClass = new UserInfo(ProfileInfo);
 
 const profilePopupWithForm = new PopupWithForm(
     profilePopupReal,
     (ProfileInfo) => {
-        userInfo.setUserInfo(ProfileInfo);
+        userInfoClass.setUserInfo(ProfileInfo);
     }
     //profilePopupWithForm.submitFormAndGetInfo();
     //profileFormValidator.resetValidationState();
@@ -70,6 +70,7 @@ const cards = new Section({
     },
     ulPhotoGridList);
 cards.renderItems();
+
 //////////////Слушатели/////////////////////////////////////////////////
 editButton.addEventListener('click', () => profilePopupWithForm.open());
 addButton.addEventListener('click', () => newplacePopupWithForm.open());
