@@ -14,8 +14,10 @@ export class UserInfo {
         }
         return userInfo;
     }
+
     setUserInfo(data) {
         this._profileName.textContent = data.profileName;
         this._discription.textContent = data.discription;
     }
+
 }

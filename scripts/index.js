@@ -28,28 +28,31 @@ const formNewplaceValidator = new FormValidator(formNewplace, validationConfig);
 formNewplaceValidator.enableValidation();
 
 //НОВЫЕ КЛАССЫ ////////////////////////////////////////////////////////////////
-// const profilePopupWithForm = new PopupWithForm({
-//     profilePopupReal,
-//     submitForm: () => {
-//         inputName.value = profileName.textContent;
-//         inputDiscription.value = discription.textContent;
-//         profileFormValidator.resetValidationState();
-//     }
+const userInfo = new UserInfo(ProfileInfo);
 
-// });
-// profilePopupWithForm._setEventListeners();
+const profilePopupWithForm = new PopupWithForm(
+    profilePopupReal,
+    (ProfileInfo) => {
+        userInfo.setUserInfo(ProfileInfo);
+    }
+    //profilePopupWithForm.submitFormAndGetInfo();
+    //profileFormValidator.resetValidationState();
+);
 
-// const newplacePopupWithForm = new PopupWithForm({
-//     popupNewplace,
-//     submitForm: (item) => {
-//         const card = new Card(item, cardTemplate);
-//         const cardElement = card._createCard();
-//         putCardElementInDom(cardElement);
-//     }
-// });
+profilePopupWithForm._setEventListeners();
 
+const newplacePopupWithForm = new PopupWithForm(
+    popupNewplace, {
+        submitForm: (item) => {
+            const card = new Card(item, cardTemplate);
+            const cardElement = card._createCard();
+            putCardElementInDom(cardElement);
+        }
+    });
+newplacePopupWithForm._setEventListeners();
+
+///////////////////////////////////////////////////////////////////
 const popupWithImage = new PopupWithImage(popupImageZoom);
-
 const cards = new Section({
         initialCards,
         renderer: (item) => {
@@ -67,9 +70,6 @@ const cards = new Section({
     },
     ulPhotoGridList);
 cards.renderItems();
-
-const userInfo = new UserInfo(ProfileInfo);
-
-//////////////Слушатели//////////////////
+//////////////Слушатели/////////////////////////////////////////////////
 editButton.addEventListener('click', () => profilePopupWithForm.open());
 addButton.addEventListener('click', () => newplacePopupWithForm.open());
