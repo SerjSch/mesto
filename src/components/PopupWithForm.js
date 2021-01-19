@@ -1,5 +1,5 @@
 import { Popup } from './Popup.js';
-import { profileFormValidator, formNewplaceValidator } from '../src/pages/index.js';
+import { profileFormValidator, formNewplaceValidator } from '../pages/index.js';
 export class PopupWithForm extends Popup {
     constructor(popupSelector, submitForm) {
         super(popupSelector);
