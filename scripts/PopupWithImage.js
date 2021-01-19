@@ -18,4 +18,5 @@ export class PopupWithImage extends Popup {
     close() {
         super.close();
     }
+
 }

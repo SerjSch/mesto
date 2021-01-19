@@ -4,7 +4,7 @@ export class Popup {
     }
     open() {
         this._popupSelector.classList.add('popup_opened');
-        this._setEventListeners();
+        //this._setEventListeners();
     }
     close() {
         this._popupSelector.classList.remove('popup_opened');

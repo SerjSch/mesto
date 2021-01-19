@@ -1,0 +1,49 @@
+{
+    "name": "sprint7-master",
+    "version": "1.0.0",
+    "description": "* Работа с макетом Figma\r * Картинки оптимизация картинок\r * Html\r * Css (Flex, Grid)\r * JS!",
+    "main": "index.jnpm i webpack-dev-server --save-devs",
+    "scripts": {
+        "build": "webpack --mode production",
+        "dev": "webpack serve",
+        "test": "stylelint \"src/**/*.css\" && eslint --ext .js src/",
+        "fix": "stylelint \"src/**/*.css\" --fix && eslint --ext .js src/ --fix",
+        "deploy": "gh-pages -d dist",
+        "predeploy": "npm run build"
+    },
+    "author": "Sergey <7955309@mail.com>",
+    "license": "ISC",
+    "devDependencies": {
+        "-": "0.0.1",
+        "@babel/core": "^7.12.10",
+        "@babel/plugin-proposal-class-properties": "^7.12.1",
+        "@babel/preset-env": "^7.12.11",
+        "autoprefixer": "^10.2.1",
+        "babel-eslint": "^10.1.0",
+        "babel-loader": "^8.2.2",
+        "clean-webpack-plugin": "^3.0.0",
+        "css-loader": "^5.0.1",
+        "cssnano": "^4.1.10",
+        "eslint": "^7.15.0",
+        "gh-pages": "^3.1.0",
+        "html-webpack-plugin": "^4.5.1",
+        "mini-css-extract-plugin": "^1.3.4",
+        "postcss-loader": "^4.1.0",
+        "stylelint": "^13.8.0",
+        "stylelint-config-standard": "^20.0.0",
+        "webpack": "^5.15.0",
+        "webpack-cli": "^4.3.1",
+        "webpack-dev-server": "^3.11.2"
+    },
+    "dependencies": {
+        "core-js": "^3.8.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/SerjSch/mesto.git"
+    },
+    "bugs": {
+        "url": "https://github.com/SerjSch/mesto/issues"
+    },
+    "homepage": "https://github.com/SerjSch/mesto#readme"
+}

@@ -1,9 +1,9 @@
-import { FormValidator } from './FormValidator.js';
-import { Card } from './Card.js';
-import { Section } from './Section.js';
-import { PopupWithImage } from './PopupWithImage.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import { UserInfo } from './UserInfo.js';
+import { FormValidator } from '../../scripts/FormValidator.js';
+import { Card } from '../../scripts/Card.js';
+import { Section } from '../../scripts/Section.js';
+import { PopupWithImage } from '../../scripts/PopupWithImage.js';
+import { PopupWithForm } from '../../scripts/PopupWithForm.js';
+import { UserInfo } from '../../scripts/UserInfo.js';
 import {
     initialCards,
     ulPhotoGridList,
@@ -19,12 +19,12 @@ import {
     inputName,
     inputDiscription,
     popupNewplace
-} from './utils.js';
+} from '../../scripts/utils.js';
 
 //Класс FormValidator
-const profileFormValidator = new FormValidator(form, validationConfig);
+export const profileFormValidator = new FormValidator(form, validationConfig);
 profileFormValidator.enableValidation();
-const formNewplaceValidator = new FormValidator(formNewplace, validationConfig);
+export const formNewplaceValidator = new FormValidator(formNewplace, validationConfig);
 formNewplaceValidator.enableValidation();
 
 //НОВЫЕ КЛАССЫ ////////////////////////////////////////////////////////////////
@@ -66,9 +66,10 @@ const newplacePopupWithForm = new PopupWithForm(
 newplacePopupWithForm._setEventListeners();
 ///////////////////////////////////////////////////////////////////
 const popupWithImage = new PopupWithImage(popupImageZoom);
+popupWithImage._setEventListeners();
 //////////////////////////////////////////////////////////////
 //Создайте класс Section, который отвечает за отрисовку элементов на странице.
-// Первым параметром конструктора принимает объект с двумя свойствами: items и renderer. 
+// Первым параметром конструктора принимает объект с двумя свойствами: items и renderer.
 //Свойство items— это массив данных, которые нужно добавить на страницу при инициализации класса.
 // Свойство renderer— это функция, которая отвечает за создание и отрисовку данных на странице.
 const cards = new Section({
