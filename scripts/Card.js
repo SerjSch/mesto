@@ -1,8 +1,19 @@
-import { zoomFoto } from './utils.js';
+import { PopupWithImage } from './PopupWithImage.js';
 export class Card {
+<<<<<<< HEAD
     constructor(data, cardTemplate) {
         this._name = data.name;
         this._link = data.link;
+=======
+    constructor({
+            data,
+            handleCardClick
+        },
+        cardTemplate) {
+        this._name = data.name;
+        this._link = data.link;
+        this.handleCardClick = handleCardClick;
+>>>>>>> develop
         this._cardTemplate = cardTemplate;
     }
     _getTemplate() {
@@ -32,7 +43,11 @@ export class Card {
             this._handleDelClick();
         });
         this._photoGridItem.addEventListener('click', () => {
+<<<<<<< HEAD
             zoomFoto(this._name, this._link);
+=======
+            this.handleCardClick();
+>>>>>>> develop
         });
     }
     _handleLikeClick() {
