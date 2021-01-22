@@ -1,16 +1,20 @@
 export class Popup {
-    constructor(popupSelector) {
-        this._popupSelector = popupSelector;
+    constructor(popup) {
+        this._popup = popup; //Артем Евсяков писал так тоже можно)
+        this.close = this.close.bind(this);
+        this._handleEscClose = this._handleEscClose.bind(this);
+        this._handleOverlayClick = this._closePopupWithMouseclickOnOverlay.bind(this);
     }
     open() {
-        this._popupSelector.classList.add('popup_opened');
-        //this._setEventListeners();
+        this._popup.classList.add('popup_opened');
+        document.addEventListener('keydown', this._handleEscClose);
+        document.addEventListener('mousedown', this._handleOverlayClick);
     }
     close() {
-        this._popupSelector.classList.remove('popup_opened');
-        this._popupSelector.querySelector('.popup__close-button').removeEventListener('click', () => this.close());
+        this._popup.classList.remove('popup_opened');
         document.removeEventListener('keydown', this._handleEscClose);
         document.removeEventListener('mousedown', this._closePopupWithMouseclickOnOverlay);
+        //this._popup.querySelector('.popup__close-button').removeEventListener('click', this.close)
     }
     _handleEscClose(event) {
         if (event.key === 'Escape') {
@@ -22,15 +26,7 @@ export class Popup {
             this.close()
         }
     }
-    _setEventListeners() {
-        this._handleClose = this.close.bind(this);
-        this._popupSelector.querySelector('.popup__close-button').addEventListener('click', this._handleClose);
-
-
-        this._handleEsc = this._handleEscClose.bind(this);
-        document.addEventListener('keydown', this._handleEsc);
-
-        this._handleClick = this._closePopupWithMouseclickOnOverlay.bind(this);
-        document.addEventListener('click', this._handleClick);
+    setEventListeners() {
+        this._popup.querySelector('.popup__close-button').addEventListener('click', this.close);
     }
 }

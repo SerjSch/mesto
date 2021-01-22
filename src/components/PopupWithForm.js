@@ -1,18 +1,14 @@
 import { Popup } from './Popup.js';
-import { profileFormValidator, formNewplaceValidator } from '../pages/index.js';
 export class PopupWithForm extends Popup {
     constructor(popupSelector, submitForm) {
-        super(popupSelector);
-        this._submitForm = submitForm;
-    }
-    open() {
-        super.open();
-    }
-
-    //Содержит приватный метод _getInputValues, который собирает данные всех полей формы.
+            super(popupSelector);
+            this._submitForm = submitForm;
+            this._inputList = this._popup.querySelectorAll('.popup__input');
+        }
+        //Содержит приватный метод _getInputValues, который собирает данные всех полей формы.
     _getInputValues() {
         // достаём все элементы полей
-        this._inputList = this._popupSelector.querySelectorAll('.popup__input');
+        // this._inputList = this._popup.querySelectorAll('.popup__input');
         // создаём пустой объект
         this._formValues = {};
         // добавляем в этот объект значения всех полей
@@ -27,10 +23,10 @@ export class PopupWithForm extends Popup {
     // Метод setEventListeners класса PopupWithForm должен не только добавлять обработчик клика
     // иконке закрытия, но и добавлять обработчик сабмита формы.
 
-    _setEventListeners() {
-        super._setEventListeners();
+    setEventListeners() {
+        super.setEventListeners();
         this._submit = this.submitFormAndGetInfo.bind(this);
-        this._popupSelector.addEventListener('submit', this._submit);
+        this._popup.addEventListener('submit', this._submit);
     }
 
     submitFormAndGetInfo(evt) {
@@ -43,9 +39,6 @@ export class PopupWithForm extends Popup {
     // так как при закрытии попапа форма должна ещё и сбрасываться.
     close() {
         super.close();
-        this._popupSelector.removeEventListener('submit', this._submitForm);
-        this._form = this._popupSelector.querySelector('.popup__form').reset();
-        profileFormValidator.resetValidationState();
-        formNewplaceValidator.resetValidationState();
+        this._form = this._popup.querySelector('.popup__form').reset();
     }
 }

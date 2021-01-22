@@ -3,9 +3,8 @@ import { Popup } from './Popup.js';
 export class PopupWithImage extends Popup {
     constructor(popupSelector) {
         super(popupSelector);
-        super.popupSelector = popupSelector;
-        this.bigFoto = this.popupSelector.querySelector('.popup__big-foto');
-        this.placeNameinZoom = this.popupSelector.querySelector('.popup__place-name_zoom');
+        this.bigFoto = this._popup.querySelector('.popup__big-foto');
+        this.placeNameinZoom = this._popup.querySelector('.popup__place-name_zoom');
     }
     open(data) {
         super.open(); // вызываем родительский метод
@@ -15,8 +14,4 @@ export class PopupWithImage extends Popup {
         this.placeNameinZoom.textContent = data.name;
 
     }
-    close() {
-        super.close();
-    }
-
 }

@@ -1,4 +1,3 @@
-import { PopupWithImage } from './PopupWithImage.js';
 export class Card {
     constructor({
             data,
@@ -12,12 +11,11 @@ export class Card {
     }
     _getTemplate() {
         // забираем размеку из HTML и клонируем элемент
-        const cardElement = this._cardTemplate.querySelector('.photo-grid__item-fotocard')
-            .cloneNode(true);
+        const cardElement = this._cardTemplate.cloneNode(true);
         // вернём DOM-элемент карточки
         return cardElement;
     }
-    _createCard() {
+    createCard() {
         this._cardElementemplate = this._getTemplate();
         this._photoGridItem = this._cardElementemplate.querySelector(".photo-grid__item")
         this._photoGridHeart = this._cardElementemplate.querySelector('.photo-grid__heart')
