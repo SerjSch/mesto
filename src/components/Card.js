@@ -11,7 +11,8 @@ export class Card {
     }
     _getTemplate() {
         // забираем размеку из HTML и клонируем элемент
-        const cardElement = this._cardTemplate.cloneNode(true);
+        const cardElement = this._cardTemplate.querySelector('.photo-grid__item-fotocard')
+            .cloneNode(true);
         // вернём DOM-элемент карточки
         return cardElement;
     }
