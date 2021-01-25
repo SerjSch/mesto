@@ -111,15 +111,12 @@ const handleLikeClick = (card) => {
 const handleDelClick = (card) => {
     delCardSubmitPopup.open();
     delCardSubmitPopup.setCallback(() => {
-        delCardSubmitHandler(card.getCardId());
-        console.log(card.getCardId());
+        delCardSubmitHandler(card);
     })
 
 }
-const delCardSubmitHandler = (evt, cardId) => {
-    evt.preventDefault();
-    console.log(cardId);
-    api.delCardFromServer(cardId)
+const delCardSubmitHandler = (card) => {
+    api.delCardFromServer(card.getCardId())
         .then(() => {
             card.delCard()
             delCardSubmitPopup.close()
