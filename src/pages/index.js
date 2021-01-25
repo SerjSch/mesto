@@ -116,8 +116,8 @@ const handleDelClick = (card) => {
     })
 
 }
-const delCardSubmitHandler = (cardId) => {
-    EventTarget.preventDefault();
+const delCardSubmitHandler = (evt, cardId) => {
+    evt.preventDefault();
     console.log(cardId);
     api.delCardFromServer(cardId)
         .then(() => {
