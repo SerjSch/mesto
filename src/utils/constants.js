@@ -44,11 +44,16 @@ const profilePopup = document.querySelector('.popup');
 export const profilePopupReal = document.querySelector('.popup_profilePopup');
 export const popupNewplace = document.querySelector('.popup_newplace');
 export const popupImageZoom = document.querySelector('.popup_image-zoom');
+export const popupAvatar = document.querySelector('.popup_avatar');
+export const popupCardDelConfirm = document.querySelector('.popup_delConfirm');
+
 //Кнопки
 export const editButton = document.querySelector('.profile__edit-button');
 export const addButton = document.querySelector('.profile__addbutton');
 const closeButton = profilePopup.querySelector('.popup__close-button');
 const closeButtonNewplace = popupNewplace.querySelector('.popup__close-button_newplace');
+
+export const avatarEditButton = document.querySelector('.profile__avatar-edit-button');
 //Форма профиля
 export const form = profilePopup.querySelector('.popup__form');
 export const inputName = profilePopup.querySelector('.popup__input_name_name');

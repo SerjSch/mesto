@@ -1,21 +1,24 @@
 export class Section {
-    constructor({ initialCards, renderer }, container) {
-        this._items = initialCards;
+    constructor({ items, renderer }, container) {
+        this._items = items;
         this._renderer = renderer;
         this._container = container;
     }
 
-    // Содержит публичный метод, который отвечает за отрисовку всех элементов.
-    // Отрисовка каждого отдельного элемента должна осуществляться функцией renderer.
     renderItems() {
-        this._items.forEach((item) => {
-            this._renderer(item);
-        });
+        const allCardsforRender = this._items.map(item =>
+            this._renderer(item)
+        )
+        this.addItem(allCardsforRender)
     }
-    addItemPrepend(element) {
-        this._container.prepend(element);
-    }
-    addItemAppend(element) {
-        this._container.append(element);
+
+    addItem(element) {
+        if (Array.isArray(element)) {
+            element.forEach(item =>
+                this._container.append(item)
+            )
+        } else {
+            this._container.prepend(element);
+        }
     }
 }

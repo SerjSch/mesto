@@ -16,13 +16,16 @@
         <main class="content">
             <section class="profile">
                 <div class="profile__card">
-                    <img class="profile__avatar-foto" src="<%=require('./images/kusto.jpg')%>" alt="Фотография">
+                    <div class="profile__avatar-foto">
+                        <!-- <img class="profile__avatar-foto" src="<%=require('./images/kusto.jpg')%>" alt="Фотография"> -->
+                        <button class="profile__avatar-edit-button" type="button"></button>
+                    </div>
                     <div class="profile__info">
                         <div class="profile__title">
-                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <h1 class="profile__name">...</h1>
                             <button type="button" class="profile__edit-button"></button>
                         </div>
-                        <p class="profile__discription">Исследователь океана</p>
+                        <p class="profile__discription">...</p>
                     </div>
                 </div>
                 <button type="button" class="profile__addbutton"></button>
@@ -37,15 +40,32 @@
         </footer>
     </div>
 
+    <!-- Шаблон карточки с фото -->
+    <template class="fotocards ">
+        <li class="photo-grid__item-fotocard ">
+             <img class="photo-grid__item" src="#" alt="#">
+            <button type="button " class="photo-grid__trash-bin"></button>
+            <div class="photo-grid__foto-discription">
+                <h2 class="photo-grid__place-name "></h2>
+                <div class="photo-grid__likes-container">
+                <button type="button " class="photo-grid__heart"></button>
+                <p class="photo-grid__like-counter"></p>
+              </div>
+            </div>
+        </li>
+    </template>
+
+    <!-- /////////////////////////////////////////////////////////////////// -->
+
     <!-- Попап редактирования карточки -->
     <div class="popup popup_profilePopup">
         <div class="popup__window">
             <button type="button" class="popup__close-button"></button>
             <h3 class="popup__title">Редактировать профиль</h3>
             <form class="popup__form">
-                <input id="user_name" type="text" autocomplete="off" class="popup__input popup__input_name_name" name="name" minlength="2" required="" placeholder="Имя" value="Жак-Ив Кусто">
+                <input id="user_name" type="text" autocomplete="off" class="popup__input popup__input_name_name" name="name" minlength="2" required="" placeholder="Имя" value="...">
                 <span id="user_name-error" class="error"></span>
-                <input id="about" type="text" autocomplete="off" class="popup__input popup__input_name_discription" name="discription" required="" minlength="2" placeholder="О себе" value="Исследователь океана">
+                <input id="about" type="text" autocomplete="off" class="popup__input popup__input_name_discription" name="discription" required="" minlength="2" placeholder="О себе" value="...">
                 <span id="about-error" class="error"></span>
                 <button type="submit" class="popup__save-button">Сохранить</button>
             </form>
@@ -73,19 +93,37 @@
             <h2 class="popup__place-name popup__place-name_zoom "></h2>
         </div>
     </div>
-    <!-- Шаблон карточки с фото -->
-    <template class="fotocards ">
-        <li class="photo-grid__item-fotocard ">
-             <img class="photo-grid__item" src="#" alt="#">
-            <button type="button " class="photo-grid__trash-bin"></button>
-            <div class="photo-grid__foto-discription">
-                <h2 class="photo-grid__place-name "></h2>
-                <button type="button " class="photo-grid__heart"></button>
-            </div>
-        </li>
-    </template>
+    <!-- /////////////////////ПРОЕКТНАЯ 9 /////////////////////////////////////// -->
+
+    <!-- Попап Аватара -->
+    <div class="popup popup_avatar">
+        <div class=" popup__window">
+            <button type="button" class="popup__close-button"></button>
+            <h3 class="popup__title popup__title-avatar">Обновить аватар</h3>
+            <form class="popup__form popup__form_newplace">
+                <input type="url " id="avatar " name="avatar" class="popup__input popup__input_name_url" placeholder="Ссылка на аватар " required>
+                <span id="link-error" class="error"></span>
+                <button type="submit " class="popup__save-button">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Попап подтверждения удаления -->
+    <div class="popup popup_delConfirm">
+        <div class="popup__window">
+            <button type="button" class="popup__close-button"></button>
+            <h3 class="popup__title-avatar">Вы уверены?</h3>
+            <form class="popup__form">
+                <div class="popup__zoom-window">
+                    <button type="submit" class="popup__save-button">Да</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- /////////////////////КОНЕЦ ПРОЕКТНАЯ 9 /////////////////////////////////////// -->
     <!-- Подключаем JS -->
-    <!-- <script src="/src/pages/index.js" type="module"></script> -->
+    <!-- <script src="/src/pages/index.js " type="module "></script> -->
 </body>
 
 </html>

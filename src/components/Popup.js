@@ -1,9 +1,10 @@
 export class Popup {
     constructor(popup) {
-        this._popup = popup; //Артем Евсяков писал так тоже можно)
+        this._popup = popup;
         this.close = this.close.bind(this);
         this._handleEscClose = this._handleEscClose.bind(this);
         this._handleOverlayClick = this._handleOverlayClick.bind(this);
+        this._submitButton = this._popup.querySelector('.popup__save-button');
     }
     open() {
         this._popup.classList.add('popup_opened');
@@ -26,6 +27,24 @@ export class Popup {
             this.close()
         }
     }
+
+    showProfileLoading(isLoading) {
+        if (isLoading) {
+            this._submitButton.textContent = 'Сохранение...'
+        } else {
+            this._submitButton.textContent = 'Сохранить'
+        }
+    }
+
+    showPhotoLoading(isLoading) {
+        if (isLoading) {
+            this._submitButton.textContent = 'Создание...'
+        } else {
+            this._submitButton.textContent = 'Создать'
+        }
+    }
+
+
     setEventListeners() {
         this._popup.querySelector('.popup__close-button').addEventListener('click', this.close);
     }

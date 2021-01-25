@@ -1,12 +1,16 @@
 import './index.css';
+import { Api } from '../components/Api.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { Card } from '../components/Card.js';
 import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupWithSubmit } from '../components/PopupWithSubmit.js';
 import { UserInfo } from '../components/UserInfo.js';
 import {
-    initialCards,
+    avatarEditButton,
+    popupAvatar,
+    popupCardDelConfirm,
     ulPhotoGridList,
     validationConfig,
     ProfileInfo,
@@ -20,71 +24,148 @@ import {
     popupNewplace
 } from '../utils/constants.js';
 
-//Класс FormValidator
+let cards
+    //Класс FormValidator
 export const profileFormValidator = new FormValidator(form, validationConfig);
 profileFormValidator.enableValidation();
 export const formNewplaceValidator = new FormValidator(formNewplace, validationConfig);
 formNewplaceValidator.enableValidation();
 
-//НОВЫЕ КЛАССЫ ////////////////////////////////////////////////////////////////
-const userInfoClass = new UserInfo(ProfileInfo);
-//Принимает в конструктор объект с селекторами двух элементов: элемента имени пользователя и элемента информации о себе.
-//////////// КЛАСС ФОРМЫ ПРОФИЛЯ ////////////////////////////////////////
-const profilePopupWithForm = new PopupWithForm(
-    //Кроме селектора попапа принимает в конструктор колбэк сабмита формы.
-    profilePopupReal,
-    (data) => {
-        userInfoClass.setUserInfo(data);
-    }
-);
-profilePopupWithForm.setEventListeners();
-
-//////////////////////////////////////////////////////////////////////////////////
-function createCard(data) {
-    const card = new Card({
-            data: data,
-            handleCardClick: () => {
-                popupWithImage.open(data);
-            }
-        },
-        cardTemplate
-    );
-    const cardElement = card.createCard();
-    return cardElement;
-};
-
-function addCardToContainer(data) {
-    const newCard = createCard(data);
-    cards.addItemPrepend(newCard);
-};
-
-
-//////////////// ПОПАП НОВОЕ МЕСТО/////////////////
-const newplacePopupWithForm = new PopupWithForm(
-    popupNewplace,
-    (data) => {
-        addCardToContainer(data);
-    }
-);
-newplacePopupWithForm.setEventListeners();
-
-//////////////////ПОПАП КАРТИНКА/////////////////////////////////////////////////
+///////////////НОВЫЕ КЛАССЫ ////////////////////////////////////////////////////////////////
+const userInfoClass = new UserInfo(ProfileInfo, '.profile__avatar-foto');
 const popupWithImage = new PopupWithImage(popupImageZoom);
+const delCardSubmitPopup = new PopupWithSubmit(popupCardDelConfirm);
+
+const profilePopupWithForm = new PopupWithForm(profilePopupReal, (inputData) => {
+    profilePopupWithForm.showProfileLoading(true);
+    api.sendUserInfo(inputData)
+        .then((res) => {
+            userInfoClass.setUserInfo(res.name, res.about)
+            profilePopupWithForm.showProfileLoading(false)
+            profilePopupWithForm.close()
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+});
+const newplacePopupWithForm = new PopupWithForm(popupNewplace, (values) => {
+    newplacePopupWithForm.showPhotoLoading(true)
+    api.sendNewCard(values)
+        .then(res => {
+            cards.addItem(addNewCard(res))
+            newplacePopupWithForm.showPhotoLoading(false)
+            newplacePopupWithForm.close()
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+});
+
+const classAvatarPopup = new PopupWithForm(popupAvatar, (inputData) => {
+    classAvatarPopup.showProfileLoading(true);
+    api.sendUserAvatar(inputData)
+        .then((result) => {
+            userInfoClass.setUserAvatar(result.avatar)
+            classAvatarPopup.showProfileLoading(false)
+            classAvatarPopup.close()
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+});
+
+profilePopupWithForm.setEventListeners();
+newplacePopupWithForm.setEventListeners();
 popupWithImage.setEventListeners();
-//////////////////////////////////////////////////////////////
-//Создайте класс Section, который отвечает за отрисовку элементов на странице.
-// Первым параметром конструктора принимает объект с двумя свойствами: items и renderer.
-//Свойство items— это массив данных, которые нужно добавить на страницу при инициализации класса.
-// Свойство renderer— это функция, которая отвечает за создание и отрисовку данных на странице.
-const cards = new Section({
-        initialCards,
-        renderer: (item) => {
-            const allCards = createCard(item);
-            cards.addItemAppend(allCards);
-        },
-    },
-    ulPhotoGridList); //Второй параметр конструктора — селектор контейнера, в который нужно добавлять созданные элементы.
-cards.renderItems();
+classAvatarPopup.setEventListeners();
+delCardSubmitPopup.setEventListeners()
+
+//функция создания карточки//////-----------------------------------------------------------------------------------------------
+const handleCardClick = (result) => {
+    popupWithImage.open(result)
+}
+
+const handleLikeClick = (card) => {
+    const handleLikeResponse = (res) => {
+        card.counterOfLikes(res.likes, res.likes.some(
+            (user) => user._id === userInfoClass.getUserId()
+        ))
+    }
+    if (!card.getCardLiked()) {
+        api.likeTheCard(card.getCardId())
+            .then(handleLikeResponse)
+            .catch((err) => {
+                console.log(err);
+            })
+    } else {
+        api.delCardsLike(card.getCardId())
+            .then(handleLikeResponse)
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+}
+const handleDelClick = (card) => {
+    delCardSubmitPopup.open();
+    delCardSubmitPopup.setCallback(() => {
+        delCardSubmitHandler(card.getCardId());
+        console.log(card.getCardId());
+    })
+
+}
+const delCardSubmitHandler = (cardId) => {
+    console.log(cardId);
+    api.delCardFromServer(cardId)
+        .then(() => {
+            card.delCard()
+            delCardSubmitPopup.close()
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+}
+
+
+const addNewCard = (result) => {
+    const card = new Card({
+        data: result,
+        liked: result.likes.some((user) => user._id === userInfoClass.getUserId()),
+        owned: result.owner._id === userInfoClass.getUserId(),
+        handleCardClick,
+        handleLikeClick,
+        handleDelClick
+    }, cardTemplate);
+    const newCardElement = card.createCard();
+    return newCardElement;
+}
+
+///////////////ПРОЕКТНАЯ 9 ////////////////////////////////////////////
+
+//Класс для поключения к серверу
+const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-19',
+    headers: {
+        authorization: '35a14b0b-ee14-4289-9936-131b6a5ac6f5',
+        'Content-Type': 'application/json'
+    }
+})
+
+Promise.all([
+        api.getUserData(),
+        api.getInitialCards()
+    ])
+    .then(values => {
+        const [userData, initialCards] = values; //деструктуризация массива
+
+        userInfoClass.setUserInfo(userData.name, userData.about);
+        userInfoClass.setUserAvatar(userData.avatar);
+        userInfoClass.setUserId(userData._id);
+        cards = new Section({ items: initialCards, renderer: addNewCard }, ulPhotoGridList);
+        cards.renderItems();
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 
 //////////////Слушатели/////////////////////////////////////////////////
 editButton.addEventListener('click', () => {
@@ -96,6 +177,11 @@ editButton.addEventListener('click', () => {
 });
 
 addButton.addEventListener("click", () => {
-    newplacePopupWithForm.open()
+    newplacePopupWithForm.open();
+    formNewplaceValidator.resetValidationState();
+});
+
+avatarEditButton.addEventListener('click', () => {
+    classAvatarPopup.open();
     formNewplaceValidator.resetValidationState();
 });
