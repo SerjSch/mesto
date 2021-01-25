@@ -10,11 +10,12 @@ import { UserInfo } from '../components/UserInfo.js';
 import {
     avatarEditButton,
     popupAvatar,
+    avatarForm,
     popupCardDelConfirm,
     ulPhotoGridList,
     validationConfig,
-    ProfileInfo,
-    form,
+    profileInfo,
+    profileForm,
     formNewplace,
     profilePopupReal,
     cardTemplate,
@@ -26,22 +27,24 @@ import {
 
 let cards
     //Класс FormValidator
-export const profileFormValidator = new FormValidator(form, validationConfig);
+export const profileFormValidator = new FormValidator(profileForm, validationConfig);
 profileFormValidator.enableValidation();
 export const formNewplaceValidator = new FormValidator(formNewplace, validationConfig);
 formNewplaceValidator.enableValidation();
+export const formAvatarValidator = new FormValidator(avatarForm, validationConfig);
+formAvatarValidator.enableValidation();
 
 ///////////////НОВЫЕ КЛАССЫ ////////////////////////////////////////////////////////////////
-const userInfoClass = new UserInfo(ProfileInfo, '.profile__avatar-foto');
+const userInfoClass = new UserInfo(profileInfo, '.profile__avatar-foto');
 const popupWithImage = new PopupWithImage(popupImageZoom);
 const delCardSubmitPopup = new PopupWithSubmit(popupCardDelConfirm);
 
 const profilePopupWithForm = new PopupWithForm(profilePopupReal, (inputData) => {
-    profilePopupWithForm.showProfileLoading(true);
+    profilePopupWithForm.showLoading(true, 'Сохранение...');
     api.sendUserInfo(inputData)
         .then((res) => {
             userInfoClass.setUserInfo(res.name, res.about)
-            profilePopupWithForm.showProfileLoading(false)
+            profilePopupWithForm.showLoading(false, 'Сохранить')
             profilePopupWithForm.close()
         })
         .catch((err) => {
@@ -49,11 +52,11 @@ const profilePopupWithForm = new PopupWithForm(profilePopupReal, (inputData) => 
         })
 });
 const newplacePopupWithForm = new PopupWithForm(popupNewplace, (values) => {
-    newplacePopupWithForm.showPhotoLoading(true)
+    newplacePopupWithForm.showLoading(true, 'Создание...');
     api.sendNewCard(values)
         .then(res => {
-            cards.addItem(addNewCard(res))
-            newplacePopupWithForm.showPhotoLoading(false)
+            cards.addItem(createCard(res))
+            newplacePopupWithForm.showLoading(false, 'Создать')
             newplacePopupWithForm.close()
         })
         .catch((err) => {
@@ -62,11 +65,11 @@ const newplacePopupWithForm = new PopupWithForm(popupNewplace, (values) => {
 });
 
 const classAvatarPopup = new PopupWithForm(popupAvatar, (inputData) => {
-    classAvatarPopup.showProfileLoading(true);
+    classAvatarPopup.showLoading(true, 'Сохранение...');
     api.sendUserAvatar(inputData)
         .then((result) => {
             userInfoClass.setUserAvatar(result.avatar)
-            classAvatarPopup.showProfileLoading(false)
+            classAvatarPopup.showLoading(false, 'Сохранить')
             classAvatarPopup.close()
         })
         .catch((err) => {
@@ -114,6 +117,7 @@ const handleDelClick = (card) => {
 
 }
 const delCardSubmitHandler = (cardId) => {
+    EventTarget.preventDefault();
     console.log(cardId);
     api.delCardFromServer(cardId)
         .then(() => {
@@ -126,7 +130,7 @@ const delCardSubmitHandler = (cardId) => {
 }
 
 
-const addNewCard = (result) => {
+const createCard = (result) => {
     const card = new Card({
         data: result,
         liked: result.likes.some((user) => user._id === userInfoClass.getUserId()),
@@ -160,7 +164,7 @@ Promise.all([
         userInfoClass.setUserInfo(userData.name, userData.about);
         userInfoClass.setUserAvatar(userData.avatar);
         userInfoClass.setUserId(userData._id);
-        cards = new Section({ items: initialCards, renderer: addNewCard }, ulPhotoGridList);
+        cards = new Section({ items: initialCards, renderer: createCard }, ulPhotoGridList);
         cards.renderItems();
     })
     .catch((err) => {
@@ -183,5 +187,5 @@ addButton.addEventListener("click", () => {
 
 avatarEditButton.addEventListener('click', () => {
     classAvatarPopup.open();
-    formNewplaceValidator.resetValidationState();
+    formAvatarValidator.resetValidationState();
 });

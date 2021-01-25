@@ -27,24 +27,6 @@ export class Popup {
             this.close()
         }
     }
-
-    showProfileLoading(isLoading) {
-        if (isLoading) {
-            this._submitButton.textContent = 'Сохранение...'
-        } else {
-            this._submitButton.textContent = 'Сохранить'
-        }
-    }
-
-    showPhotoLoading(isLoading) {
-        if (isLoading) {
-            this._submitButton.textContent = 'Создание...'
-        } else {
-            this._submitButton.textContent = 'Создать'
-        }
-    }
-
-
     setEventListeners() {
         this._popup.querySelector('.popup__close-button').addEventListener('click', this.close);
     }

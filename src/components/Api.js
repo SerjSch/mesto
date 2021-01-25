@@ -9,12 +9,7 @@ export class Api {
         return fetch(this._baseUrl + '/users/me', {
                 headers: this._headers,
             })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка, что-то пошло не так: ${res.status}`);
-            });
+            .then(this._getResponseData);
     }
 
     /////Получаем карточки с сервера//////////////////////////////
@@ -22,12 +17,7 @@ export class Api {
         return fetch(this._baseUrl + '/cards', {
                 headers: this._headers,
             })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка, что-то пошло не так: ${res.status}`);
-            });
+            .then(this._getResponseData);
     }
 
     /////Отправляем измененные данные пользователя на сервер////////////////
@@ -40,12 +30,7 @@ export class Api {
                     about: values.discription
                 })
             })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка, что-то пошло не так: ${res.status}`);
-            });
+            .then(this._getResponseData);
 
     }
 
@@ -55,15 +40,10 @@ export class Api {
                 method: 'PATCH',
                 headers: this._headers,
                 body: JSON.stringify({
-                    avatar: picture.avatar
+                    avatar: picture.link
                 })
             })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка, что-то пошло не так: ${res.status}`);
-            });
+            .then(this._getResponseData);
 
     }
 
@@ -77,12 +57,7 @@ export class Api {
                     link: values.link
                 })
             })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка, что-то пошло не так: ${res.status}`);
-            });
+            .then(this._getResponseData);
     }
 
     /////////////Поставим Лайк///////////////
@@ -91,12 +66,7 @@ export class Api {
                 method: 'PUT',
                 headers: this._headers
             })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка, что-то пошло не так: ${res.status}`);
-            });
+            .then(this._getResponseData);
     }
 
     /////////////Удалим Лайк///////////////
@@ -105,12 +75,7 @@ export class Api {
                 method: 'DELETE',
                 headers: this._headers
             })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка, что-то пошло не так: ${res.status}`);
-            });
+            .then(this._getResponseData(res));
     }
 
     /////////////Удалим Фотокарточку///////////////
@@ -119,12 +84,14 @@ export class Api {
                 method: 'DELETE',
                 headers: this._headers
             })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка, что-то пошло не так: ${res.status}`);
-            });
+            .then(this._getResponseData);
+    }
+
+    _getResponseData(res) {
+        if (!res.ok) {
+            return Promise.reject(`Ошибка, что-то пошло не так: ${res.status}`);
+        }
+        return res.json();
     }
 
 }

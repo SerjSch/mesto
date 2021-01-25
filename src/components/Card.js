@@ -75,6 +75,7 @@ export class Card {
 
     delCard = () => {
         this._cardElementemplate.remove();
+        this._cardElementemplate = null;
     }
 
     _cardLiked = () => {
